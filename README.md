@@ -1,88 +1,116 @@
-# GA2A4J Project
+# GA2A4J SDK
 
-This is a Spring Boot application that demonstrates the use of data models for task management.
+## Overview
+GA2A4J is a Java SDK that provides models and utilities for task management and related functionalities. This README provides comprehensive documentation on how to use the SDK effectively.
 
-## Getting Started
+## Installation
 
-### Prerequisites
+### Maven
+Add the following dependency to your `pom.xml` file:
 
-- Java 11 or higher
-- Maven
-
-### Installation
-
-1. Clone the repository
-2. Navigate to the project directory
-3. Build the project with Maven:
-
-```bash
-mvn clean install
+```xml
+<dependency>
+    <groupId>com.ga2a4j</groupId>
+    <artifactId>ga2a4j-sdk</artifactId>
+    <version>1.0.0</version>
+</dependency>
 ```
 
-### Running the Application
+### Gradle
+Add the following to your `build.gradle` file:
 
-```bash
-java -jar target/GA2A4J-0.0.1-SNAPSHOT.jar
-```
-
-## Usage Examples
-
-The GA2A4J project includes a CLI demo application that demonstrates how to work with the Task model.
-
-### CLI Application Commands
-
-When running the application, you'll see a menu with the following options:
-
-1. **Add Task** - Create a new task with title, description, and due date
-2. **List Tasks** - Display all tasks with their details
-3. **Update Task** - Modify an existing task's properties
-4. **Delete Task** - Remove a task from the list
-5. **Exit** - Close the application
-
-### Code Examples
-
-#### Creating a Task
-
-```java
-Task task = new Task();
-task.setId(1L);
-task.setTitle("Complete project documentation");
-task.setDescription("Write comprehensive documentation for the GA2A4J project");
-task.setDueDate(LocalDate.now().plusDays(7));
-task.setCompleted(false);
-```
-
-#### Updating a Task's Status
-
-```java
-Task task = findTaskById(1L); // Assuming this method exists
-if (task != null) {
-    task.setCompleted(true);
-    System.out.println("Task marked as completed!");
+```groovy
+dependencies {
+    implementation 'com.ga2a4j:ga2a4j-sdk:1.0.0'
 }
 ```
 
-#### Working with a List of Tasks
+## Basic Usage
+
+### Creating a Task
+The Task model is the core component of the SDK. Here's how to create a basic task:
 
 ```java
+import com.ga2a4j.model.Task;
+
+// Using the builder pattern
+Task task = Task.builder()
+    .id("task-123")
+    .name("Complete documentation")
+    .description("Update the SDK documentation with examples")
+    .build();
+
+// Access task properties
+String taskId = task.getId();
+String taskName = task.getName();
+```
+
+## Model Descriptions
+
+### Task Model
+The `Task` class represents a task with the following properties:
+
+- `id`: Unique identifier for the task
+- `name`: Name/title of the task
+- `description`: Detailed description of the task
+- Additional properties may be available depending on your version
+
+The Task model uses the builder pattern for easy instantiation and modification.
+
+### Other Models
+The SDK includes additional models in the `com.ga2a4j.model` package:
+
+- [Document other models here as they become available]
+
+## Advanced Usage Patterns
+
+### Task Management Workflows
+
+```java
+// Example of creating and managing multiple tasks
+import com.ga2a4j.model.Task;
+import java.util.ArrayList;
+import java.util.List;
+
+// Create a list of tasks
 List<Task> tasks = new ArrayList<>();
 
-// Add tasks
-Task task1 = new Task();
-task1.setId(1L);
-task1.setTitle("First task");
-tasks.add(task1);
+// Add tasks to the list
+tasks.add(Task.builder()
+    .id("task-1")
+    .name("Research")
+    .description("Initial research phase")
+    .build());
+    
+tasks.add(Task.builder()
+    .id("task-2")
+    .name("Implementation")
+    .description("Implement the required features")
+    .build());
 
-// Filter completed tasks
-List<Task> completedTasks = tasks.stream()
-    .filter(Task::isCompleted)
-    .collect(Collectors.toList());
+// Process tasks
+tasks.forEach(task -> {
+    System.out.println("Processing task: " + task.getName());
+    // Additional processing logic
+});
 ```
+
+### Integration with Other Systems
+
+The SDK can be integrated with various systems and frameworks:
+
+- **Spring Boot**: Use the models as DTOs or domain objects in your Spring applications
+- **Database Integration**: Map the models to database entities using JPA or other ORM frameworks
+- **REST APIs**: Use the models as request/response objects in your API endpoints
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
+Contributions to the GA2A4J SDK are welcome! Please follow these steps:
+
+1. Fork the repository
+2. Create a feature branch
+3. Submit a pull request
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
+[Include license information here]
