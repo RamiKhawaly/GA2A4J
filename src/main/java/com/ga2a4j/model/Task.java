@@ -13,6 +13,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Task {
-    // Task properties will be added based on the complete schema
-    // This is a placeholder class to support CancelTaskResponse
+    private String id;
+    private String name;
+    private String description;
+    private String status;
+    private String priority;
+    // Additional properties can be added as needed
 }
